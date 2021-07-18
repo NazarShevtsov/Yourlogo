@@ -56,6 +56,7 @@ new Swiper('.members-slider', {
 //lazy loading
 const lazyImages = document.querySelectorAll('img[data-src], source[data-srcset]');
 const windowHeight = document.documentElement.clientHeight;
+const loadMoreBlock = document.querySelector('.load__more');
 
 let lazyImagesPositions = [];
 if(lazyImages.length>0){
@@ -91,3 +92,36 @@ function lazyScrollCheck(){
 	}
 }
 
+function loadMore(){
+	const loadMOreBlockPos = loadMoreBlock.getBoundingClientRect().top + pageYOffset;
+	const loadMoreBlockHeight = loadMoreBlock.offsetHeight;
+
+	if(pageYOffset > (loadMOreBlockPos + loadMoreBlockHeight) - windowHeight){
+		getContent();
+	}
+}
+
+async function getContent(){
+	if(!document.querySelector('._loading-icon')){
+		loadMoreBlock.insertAdjacentHTML(
+			'beforeend',
+			'<div class="_loading-icon"></div>'
+		);
+	}
+	loadMoreBlock.classList.add('_loading');
+
+	let response = await fetch('index.html',{
+		method: 'GET',
+	});
+
+	if(response.ok){
+		let result = await response.text();
+		loadMoreBlock.insertAdjacentHTML('beforeend', result);
+		loadMoreBlock.classList.remowe('_loading');
+		if(document.querySelector('._loading-icon')){
+			document.querySelector('._loading-icon').remove();
+		}else{
+			alert("Error");
+		}
+	}
+}

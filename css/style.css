@@ -132,6 +132,11 @@ body {
   font-family: 'OpenSans';
 }
 
+._loading-icon {
+  background: url(../img/loading.gif) center/40px no-repeat;
+  height: 40px;
+}
+
 .wrapper {
   min-height: 100%;
   overflow: hidden;
