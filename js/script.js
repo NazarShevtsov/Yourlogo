@@ -93,10 +93,10 @@ function lazyScrollCheck(){
 }
 
 function loadMore(){
-	const loadMOreBlockPos = loadMoreBlock.getBoundingClientRect().top + pageYOffset;
+	const loadMoreBlockPos = loadMoreBlock.getBoundingClientRect().top + pageYOffset;
 	const loadMoreBlockHeight = loadMoreBlock.offsetHeight;
 
-	if(pageYOffset > (loadMOreBlockPos + loadMoreBlockHeight) - windowHeight){
+	if(pageYOffset > (loadMoreBlockPos + loadMoreBlockHeight) - windowHeight){
 		getContent();
 	}
 }
